@@ -1,0 +1,89 @@
+﻿@using Pokedex.Core.Application.ViewModels;
+@{
+    ViewData["Title"] = "Mantenimiento Pokemon";
+}
+
+@model Pokedex.Core.Application.ViewModels.SavePokemonViewModel;
+
+@{
+    bool editmode = Model.idpoke == 0 ? false : true; 
+}
+
+<div class="container-fluid">
+    <div class="row">
+       <div class="col-6 offset-3">
+         <div class="card shadow-sm">
+                <div class="card-header bg-dark text-light">
+                    <h4> @(editmode ? $"Editando el pokemon: {Model.name}" : "Crear") </h4>
+                </div>
+               <div class="card-body">
+                    <div class="card-body">
+
+                        <form method="post" asp-controller="PokemonMantain" asp-action="@(editmode ? $"Edit":"Create")">
+
+                            <div class="mb-3">
+                                <label for="NameText" class="form-label">Nombre</label>
+                                <input type="text" asp-for="name" class="form-control" id="NameText">
+                                 <span asp-validation-for="name" class="text-danger"> </span>
+                                
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="DescriptionText" class="form-label">Descripción</label>
+                                <textarea  asp-for="description" class="form-control" id="DescriptionText">  </textarea>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="Image" class="form-label">Url Imagen</label>
+                                <input type="text" asp-for="ImagePath" class="form-control" id="Image">
+                                 <span asp-validation-for="ImagePath" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="Region" class="form-label">Seleccionar región</label>
+                                <select asp-for="idRegion" id="Region" class="form-select">
+                                    <option>Seleccione...</option>
+                                    @foreach (RegionViewModel item in ViewBag.Regions)
+                                    {
+                                        <option value="@item.idregion">@item.regionName</option>
+                                    }
+                                </select>
+                                <span asp-validation-for="idRegion" class="text-danger"></span>
+                            </div>
+
+                             <div class="mb-3">
+                                <label for="Tipo" class="form-label">Seleccionar tipo</label>
+                                <select asp-for="idtipo" id="Tipo" class="form-select">
+                                    <option>Seleccione...</option>
+                                    @foreach (TipoViewModel item in ViewBag.Tipos)
+                                    {
+                                        <option value="@item.idtipo">@item.tipoName</option>
+                                    }
+                                </select>
+                                <span asp-validation-for="idtipo" class="text-danger"></span>
+                             </div>
+
+                            <div class="mb-3">
+                                <label for="subtipo" class="form-label">Seleccionar subtipo</label>
+                                <select asp-for="subtipo" id="subtipo" class="form-select">
+                                    <option>Seleccione...</option>
+                                    @foreach (TipoViewModel item in ViewBag.Tipos)
+                                    {
+                                        <option value="@item.tipoName">@item.tipoName</option>
+                                    }
+                                </select>
+                            </div>
+
+                            <input type="hidden" asp-for="idpoke">
+                            
+                            <button type="submit" class="btn btn-primary">Dale</button>
+                            <a asp-controller="PokemonMantain" asp-action="Index" class="btn btn-warning">Atrás</a>
+                        </form>
+
+                    </div>
+                </div>
+          </div>
+       </div>
+
+    </div>
+</div>

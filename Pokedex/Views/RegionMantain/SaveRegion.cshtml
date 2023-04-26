@@ -1,0 +1,48 @@
+﻿@{
+    ViewData["Title"] = "Mantenimiento Region";
+}
+
+@model Pokedex.Core.Application.ViewModels.SaveRegionViewModel;
+
+@{
+    bool editmode = Model.idregion == 0 ? false : true;
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-6 offset-3">
+            <div class="card shadow-sm">
+                <div class="card-header bg-dark text-light">
+                    <h4> @(editmode ? $"Editando el Region: {Model.regionName}" : "Crear") </h4>
+                </div>
+                <div class="card-body">
+                    <div class="card-body">
+
+                        <form method="post" asp-controller="RegionMantain" asp-action="@(editmode ? $"Edit":"CreateRegion")">
+
+                            <div class="mb-3">
+                                <label for="NameText" class="form-label">Nombre</label>
+                                <input type="text" asp-for="regionName" class="form-control" id="NameText">
+                                <span asp-validation-for="regionName" class="text-danger"> </span>
+
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="Image" class="form-label">Url Imagen</label>
+                                <input type="text" asp-for="ImagePath" class="form-control" id="Image">
+                                <span asp-validation-for="ImagePath" class="text-danger"></span>
+                            </div>
+
+                            <input type="hidden" asp-for="idregion">
+
+                            <button type="submit" class="btn btn-primary">Dale</button>
+                            <a asp-controller="RegionMantain" asp-action="Index" class="btn btn-warning">Atrás</a>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

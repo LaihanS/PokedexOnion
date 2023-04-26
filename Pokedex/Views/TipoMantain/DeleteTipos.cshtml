@@ -1,0 +1,24 @@
+﻿@model Pokedex.Core.Application.ViewModels.SaveTipoViewModel
+@{
+    ViewData["Title"] = "Eliminar Tipo";
+}
+
+<div class="row">
+    <div class="col-6 offset-3">
+        <div class="card">
+            <div class="card-header bg-dark text-light">
+                <h4>Esta seguro que desea eliminar el Tipo @Model.tipoName?</h4>
+            </div>
+            <div class="card-body">
+                <form method="post" asp-controller="TipoMantain" asp-action="PostDeleteTipo">
+
+                    <input type="hidden" asp-for="idtipo"/>
+
+                    <button type="submit" class="btn btn-primary">Eliminar</button>
+                    <a asp-controller="TipoMantain" asp-action="Index" class="btn btn-warning">Volver atras</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

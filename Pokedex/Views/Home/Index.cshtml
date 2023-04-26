@@ -1,0 +1,77 @@
+﻿@using Pokedex.Core.Application.ViewModels;
+
+@{
+    ViewData["Title"] = "Home Page";
+} 
+@model List<Pokedex.Core.Application.ViewModels.PokemonViewModel>
+
+
+<div class="row py-lg-5">
+    <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="fw-light">Mantenimiento Pokémon</h1>
+        <p class="lead text-muted">No vean Pokemon, eso hace daño</p>
+        <p>   
+           <form method="post" asp-controller="Home" asp-action="Index">
+               
+                <div class="mb-3">
+                    <div class="form-check">
+                        <input class="form-check-input" value="null" type="radio" name="RegionId" id="region-all">
+                        <label class="form-check-label" for="region-all">Tolavaina</label>
+                    </div>
+                </div>
+
+                @foreach (RegionViewModel item in ViewBag.Regions)
+                    {
+                       <div class="mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" value="@item.idregion" type="radio" name="RegionId" id="region-@item.idregion">
+                            <label class="form-check-label" for="region-@item.idregion">@item.regionName</label>
+                         </div>  
+                       </div>  
+                    }
+
+             <button type="submit" class="btn btn-primary">Filtrar</button>
+            </form>
+        </p>
+    </div>
+    <div class="col-lg-6 col-md-8 mx-auto">
+        <form method="post" asp-controller="Home" asp-action="Index">
+
+            <input type="search" class="form-control ds-input" id="search-input" placeholder="Buscar pokemon..."
+            aria-label="Search for..." name="RegionName">
+
+          <button type="submit" class="btn btn-primary">Dale</button>
+         </form>
+    </div>
+</div>
+    
+<div class="container-fluid">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+        @if (Model.Count == 0 || Model == null)
+        {
+            <h2>No hay Pokemone</h2>
+        }
+        else
+        {
+            @foreach (Pokedex.Core.Application.ViewModels.PokemonViewModel item in Model)
+            {
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <img class="bd-placeholder-img card-img-top" src="@item.ImagePath">
+                        <div class="card-body">
+                            <h4>@item.name</h4>
+                            <p class="card-text">@item.description</p>
+                            <p class="card-text">Tipo: @item.Tipo.tipoName</p>
+                            <div class="d-flex justify-content-between align-items-center">                              
+                                <small class="text-muted">Region: @item.Region.regionName</small>
+                                <small class="text-muted">Subtipo: @item.subtipo</small>
+                            </div>
+                        </div>
+                    </div>  
+                </div>
+            }
+        }
+    
+    </div>
+</div>

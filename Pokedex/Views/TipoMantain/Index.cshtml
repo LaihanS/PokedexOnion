@@ -1,0 +1,49 @@
+﻿@{
+    ViewData["Title"] = "Mantenimiento Tipos";
+}
+
+@model List<Pokedex.Core.Application.ViewModels.TipoViewModel>
+
+<div class="row py-lg-5">
+    <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="fw-light">Mantenimiento Tipos</h1>
+        <p class="lead text-muted">No vean Pokemon, eso hace daño</p>
+        <p>
+            <a asp-controller="TipoMantain" asp-action="CreateTipo" class="btn btn-primary my-2">Crear Tipo</a>
+        </p>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+        @if (Model.Count == 0 || Model == null)
+        {
+            <h2>No hay Tipo</h2>
+        }
+        else
+        {
+            @foreach (Pokedex.Core.Application.ViewModels.TipoViewModel item in Model)
+            {
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <img class="bd-placeholder-img card-img-top" src="@item.ImagePath">
+                        <div class="card-body">
+                            <h4>@item.tipoName</h4>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a asp-controller="TipoMantain" asp-action="Edit" asp-route-id="@item.idtipo" class="btn btn-sm btn-outline-info mx-2">Editar</a>
+                                    <a asp-controller="TipoMantain" asp-action="DeleteTipo" asp-route-id="@item.idtipo" class="btn btn-sm btn-outline-danger mx-2">Borrar</a>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+
+    </div>
+</div>
